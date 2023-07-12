@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Summary</title>
+</head>
+<body>
+    <h1>File Summary</h1>
+    <p>File Size: {{ file_size }} MB</p>
+    <p>Shape: {{ shape[0] }} rows x {{ shape[1] }} columns</p>
+    <p>Last Saved: {{ last_saved }}</p>
+
+    <h2>Column Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Column Name</th>
+                <th>Data Type</th>
+                <th>Null Percentage</th>
+                <th>Unique Percentage</th>
+                <th>Likely PII</th>
+                <th>Low Cardinality</th>
+                <th>Boolean Data</th>
+                <th>Mean</th>
+                <th>Standard Deviation</th>
+                <th>Skewness</th>
+                <th>Log Transform</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for column in columns %}
+            <tr>
+                <td>{{ column.column_name }}</td>
+                <td>{{ column.data_type }}</td>
+                <td>{{ column.null_percentage|round(2) }}%</td>
+                <td>{{ column.unique_percentage|round(2) }}%</td>
+                <td>{{ column.likely_pii }}</td>
+                <td>{{ column.low_cardinality }}</td>
+                <td>{{ column.boolean_data }}</td>
+                <td>{{ column.mean }}</td>
+                <td>{{ column.std }}</td>
+                <td>{{ column.skewness }}</td>
+                <td>{{ column.log_transform }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
