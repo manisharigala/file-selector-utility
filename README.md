@@ -9,14 +9,14 @@ To run the File Selector Utility on your local machine, follow these steps:
 ### Prerequisites
 
 - Python 3.x
-- Flask
-- pandas
+- Flask 2.0.1
+- pandas 1.3.0
 
 ### Installation
 
 1. Clone the repository:
 
-git clone <repository_url>
+git clone https://github.com/manisharigala/file-selector-utility.git
 
 
 2. Navigate to the project directory:
@@ -43,6 +43,11 @@ python run.py
 ## API Documentation
 
 The File Selector Utility provides the following API endpoints:
+
+### GET /
+
+This endpoint serves the main web page of the application. You can access it by visiting `http://localhost:8888` in your web browser. The page provides a file upload form.
+
 
 ### POST /upload
 
