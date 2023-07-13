@@ -16,24 +16,24 @@ To run the File Selector Utility on your local machine, follow these steps:
 
 1. Clone the repository:
 
-git clone https://github.com/manisharigala/file-selector-utility.git
+`git clone https://github.com/manisharigala/file-selector-utility.git`
 
 
 2. Navigate to the project directory:
 
-cd file-selector-utility
+`cd file-selector-utility`
 
 
 3. Install the required packages:
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 
 ### Running the Application
 
 1. Start the Flask server:
 
-python run.py
+`python run.py`
 
 
 2. Open your web browser and go to `http://localhost:8888`.
