@@ -2,6 +2,28 @@
 <html>
 <head>
     <title>File Summary</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-label {
+            margin-left: 8px;
+        }
+    </style>
 </head>
 <body>
     <h1>File Summary</h1>
@@ -23,7 +45,6 @@
                 <th>Mean</th>
                 <th>Standard Deviation</th>
                 <th>Skewness</th>
-                <th>Log Transform</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +60,59 @@
                 <td>{{ column.mean }}</td>
                 <td>{{ column.std }}</td>
                 <td>{{ column.skewness }}</td>
-                <td>{{ column.log_transform }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <h2>Data Preview</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    {% if not column.likely_pii %}
+                        <th>{{ column.column_name }}</th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(min(10, df.shape[0])) %}
+            <tr>
+                {% for column in columns %}
+                    {% if not column.likely_pii %}
+                        <td>
+                            {% if loop.index0 < loop.length %}
+                                {% if column.data_type == 'object' %}
+                                    {% if column.low_cardinality %}
+                                        {{ df.iloc[i][column.column_name] }}
+                                    {% else %}
+                                        ***
+                                    {% endif %}
+                                {% else %}
+                                    {{ df.iloc[i][column.column_name] }}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>One-Hot Encoding</h2>
+<form action="{{ url_for('encode') }}" method="POST">
+    {% for column in columns %}
+        {% if column.low_cardinality %}
+            <div class="checkbox-container">
+                <input type="checkbox" name="feature" value="{{ column.column_name }}">
+                <label class="checkbox-label">{{ column.column_name }}</label>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <button type="submit">Encode Selected Features</button>
+</form>
+
 </body>
 </html>

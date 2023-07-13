@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Healthcare X-ray</title>
+    <title>Healthcare Utility</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -10,5 +10,11 @@
         <input type="file" name="file">
         <input type="submit" value="Upload">
     </form>
+    {% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    {% if success_message %}
+    <div class="success-message">{{ success_message }}</div>
+    {% endif %}
 </body>
 </html>
