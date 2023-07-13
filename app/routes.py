@@ -3,7 +3,6 @@ import os
 import pandas as pd
 from datetime import datetime
 from app import server, pii_helper as pii
-import re
 
 # Store the dataframe as a global variable
 df = None
